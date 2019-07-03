@@ -1,0 +1,20 @@
+version: "3"
+services:
+  web:
+    #pull the image which we uploaded to the registry
+    # replace username/repo:tag with your name and image details
+    image: umangsaltuniv/tutorial:firstversion
+    deploy:
+      replicas: 5 #run 5 instances of that image
+      resources:
+        limits: #limiting each one to use at most
+          cpus: "0.1"  #10# of CPU
+          memory: 50M # and 50 MB of RAM
+      restart_policy:
+        condition: on-failure #immediately restart containers if one fails.
+    ports:
+      - "4000:80" #map port 4000 on the host to web ports 80
+    networks:
+      - webnet
+networks: #using default values
+  webnet: #using default values
